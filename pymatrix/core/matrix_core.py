@@ -1,10 +1,13 @@
 from fractions import Fraction
 from ..utils.matrix_size import MatrixSize
+from ..core.exceptions import MatrixExistsError, MatrixDimensionError
 
 class Matrix():
+    # Define basic attributes for matrix
     __size: MatrixSize
     __matrix: list[list[Fraction]]
 
+    # Initialize
     def __init__(self, matrix: list[list[Fraction]] | None = None):
         if matrix:
             if len({len(row) for row in matrix}) == 1:
@@ -12,22 +15,19 @@ class Matrix():
 
                 self.__size = MatrixSize(len(matrix), len(matrix[0]))
             else:
-                raise ValueError("Matrix is incomplete")
+                raise MatrixDimensionError(
+                    "Rows must contain the same number of elements"
+                )
         else:
-            raise ValueError("Matrix not found")
+            raise MatrixExistsError(
+                "Matrix not found"
+            )
 
     def __repr__(self) -> list[list[Fraction]]:
         # Add a nice str formatting
         return self.__matrix
-    
-    def __iter__(self):
-        return self.__matrix
-    
-    def __sub__(self, mat):
-        pass
 
     # Getters y setters
-    
     @property
     def dim(self):
         return self.__size
