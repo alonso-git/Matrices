@@ -1,5 +1,5 @@
-class MatrixException(Exception):
+class MatrixError(Exception):
     pass
 
-class MatrixDimensionException(MatrixException):
+class MatrixDimensionError(MatrixError):
     pass
